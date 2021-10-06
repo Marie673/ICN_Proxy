@@ -9,7 +9,7 @@ if __name__ == '__main__':
 
             if info.name == "ccnx:/hcu/network/index.html" and info.chunk_num == 0:
                 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-                    sock.connect(("165.242.111.77", 80))
+                    sock.connect(("cc", 80))
                     request_message = "GET /index.html\r\n\r\n"
                     sock.send(request_message.encode('utf-8'))
 
