@@ -1,4 +1,3 @@
-import sys
 import socket
 from threading import Thread
 import cefpyco
@@ -55,6 +54,7 @@ def proxy_handler(cef, remote_host, remote_port):
             hexdump(remote_buffer)
 
             remote_buffer = response_handler(remote_buffer)
+            # send_dataに処理がかかる　or ceforeのcefgetfileの処理に時間がかかる
             cef.send_data("ccnx:/proxy/http/hcu/index.html", remote_buffer, chunk_num)
             chunk_num += 1
 
@@ -77,11 +77,13 @@ def server_loop(remote_host, remote_port):
 
 
 def main():
+    # TODO remoteの接続先をinterestに伴い決定
     remote_host = '127.0.0.1'
     remote_port = 8000
 
     server_loop(remote_host, remote_port)
 
 
+# interestのprefixにプロトコルを記述 or プロキシがinterestをクライアントに送信
 if __name__ == '__main__':
     main()
